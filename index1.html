@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="website description" />
+  <title>Login 18</title>
+      <link rel="stylesheet" href="css/style.css">
+      <script type='text/javascript' src="js/amazon-cognito-identity.js"></script>
+      <script src="https://sdk.amazonaws.com/js/aws-sdk-2.248.1.min.js"></script>   
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>       
+      <script>
+          
+
+AWS.config.region = 'us-east-1'; // Region
+AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:6fc3932a-c3a1-48b9-a643-6fee9c9e867e',
+});
+
+        var poolData = {
+    UserPoolId : 'us-east-1_Ph5FZySIB', // your user pool id here
+    ClientId : '1dcq7fo8dv8mm9hivo7no4bf7d' // your app client id here
+        };
+
+        var userPool = 
+        new AmazonCognitoIdentity.CognitoUserPool(poolData);
+      </script>
+</head>
+
+<body>
+
+  <div id="login-box">
+  <div class="left">
+    <h1>Sign up</h1>
+    
+    <input type="text" id="username" name="username" placeholder="Username" />
+    <input type="email" id="email" name="email" placeholder="E-mail" />
+    <input type="password" id="password" name="password" placeholder="Password" />
+    <input type="password" id="password2" name="password2" placeholder="Retype password" />
+    <input type="text" id="dob" name="dob" placeholder="Date of Birth" />
+    <input type="number" id="phoneno" name="phoneno" placeholder="Phone Number with Country Code" />
+    <input type="text" id="collegename" name="collegename" placeholder="College Name" />
+    <input type="text" id="collegeid" name="collegeid" placeholder="College Id" />
+    
+
+    <input type="submit" id="signupUser" name="signup_submit" value="Sign me up" />
+  </div>
+
+  <script>
+       
+    
+    document.getElementById('signupUser').addEventListener('click',function(){
+      
+//       var attributeList = [];
+//       var dataEmail = {
+//     Name : 'email',
+//     Value : 'bhuvanavignesh@gmail.com' // your email here
+// };
+// var dataPhoneNumber = {
+//     Name : 'phone_number',
+//     Value : '+917373737373'
+//      // your phone number here with +country code and no delimiters in front
+// };
+var dataAge = {
+    Name : 'custom:age',
+    Value : '21'
+     // your phone number here with +country code and no delimiters in front
+};
+// /*
+// var datadob = {
+//     Name : 'birthdate',
+//     Value : document.getElementById('dob').Value // your phone number here with +country code and no delimiters in front
+// };
+// var dataCollegename = {
+//     Name : 'CollegeName',
+//     Value : document.getElementById('collegename').Value // your phone number here with +country code and no delimiters in front
+// };
+// var dataCollegeid = {
+//     Name : 'CollegeId',
+//     Value : document.getElementById('collegeid').Value // your phone number here with +country code and no delimiters in front
+// }; */
+// var attributeEmail = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+// var attributePhoneNumber = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(dataPhoneNumber);
+// var attributeAge = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(age);
+
+// /*
+// var attributebirthdate = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(datadob);
+// var attributeCollegeName = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(dataCollegename);
+// var attributeCollegeId = 
+// new AmazonCognitoIdentity.CognitoUserAttribute(dataCollegeid);
+// */
+// attributeList.push(attributeEmail);
+// attributeList.push(attributePhoneNumber);
+// attributeList.push(attributeAge);
+
+// /*
+// attributeList.push(attributebirthdate);
+// attributeList.push(attributeCollegeName);
+// attributeList.push(attributeCollegeId);
+// */
+// var cognitoUser;
+//  userPool.signUp('bhuvan@gmail.com','Bhuvan0@7',
+//             attributeList, null,
+//             function (err, result) {
+//                 if (err) {
+//                     console.log('bhuvan');
+//                     alert(err);
+//                     return;
+//                 }
+//                 document.getElementById('signupUserResults').innerHTML = "Results: " + JSON.stringify(
+//                   result.user, null, 2);
+//                 cognitoUser = result.user;
+//                 console.log(cognitoUser);
+//             });
+//     });
+
+    var attributeList = [];
+ 
+ var dataEmail = {
+     Name : 'email',
+     Value : 'bhuvanavignesh007@gmail.com' // your email here
+ };
+//  var dataPhoneNumber = {
+//      Name : 'phone_number',
+//      Value : '+919688719019' // your phone number here with +country code and no delimiters in front
+//  };
+
+var attributeEmail = 
+ new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+//  var attributePhoneNumber = 
+//  new AmazonCognitoIdentity.CognitoUserAttribute(dataPhoneNumber);
+  var attributeAge = 
+  new AmazonCognitoIdentity.CognitoUserAttribute(dataAge);
+  
+ attributeList.push(attributeEmail);
+ //attributeList.push(attributePhoneNumber);
+ attributeList.push(attributeAge);
+
+
+
+ var cognitoUser;
+
+ userPool.signUp('bhuvanavignesh007@gmail.com', 'Bhuvan0@7', attributeList, null, function(err, result){
+     if (err) {
+         alert(err);
+         return;
+     }
+     cognitoUser = result.user;
+     console.log('user name is ' + cognitoUser.getUsername());
+ });
+    }); 
+  </script>
+  <div class="right">
+    <span class="loginwith">Sign in with<br />social network</span>
+    
+    <button class="social-signin facebook">Log in with facebook</button>
+    <button class="social-signin twitter">Log in with Twitter</button>
+    <button class="social-signin google">Log in with Google+</button>
+  </div>
+  <div class="or">OR</div>
+</div>
+  
+
+
+<input type="text" class="mca"  id="otpid" name="otpid" placeholder="type otp" value="12345" > 
+
+<input type="submit" id="otpconfirm" name="otpconfirm" value="Login" />
+
+<input type="submit" onclick="get()" id="otpconfirm2" name="otpconfirm" value="get" />
+<p id="demo"></p>
+
+
+</body>
+<script>
+    
+    function sanjeev()
+    {
+        console.log("Hi");
+    var   otp = 'sdfsf'; 
+    otp = document.getElementById("otpid").Value;
+      //  otp = document.querySelector("otpid").value;
+        console.log(otp);
+    }
+    //  document.getElementById('otpconfirm1').addEventListener('click',function(){
+    //     sanjeev();
+   
+    // console.log(otp);
+    //  });
+    document.getElementById('otpconfirm').addEventListener('click',function(){
+        var poolData = {
+            UserPoolId : 'us-east-1_Ph5FZySIB', // your user pool id here
+            ClientId : '1dcq7fo8dv8mm9hivo7no4bf7d' // your app client id here
+    };
+
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userData = {
+        Username : 'bhuvanavignesh007@gmail.com',
+        Pool : userPool
+    };
+    
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.confirmRegistration('718823', true, function(err, result) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        console.log('call result: ' + result);
+    });
+    });
+    //--------------------------------------------------------------------------------------------//
+    function sanjeev1()
+    {
+        var authenticationData = {
+        Username : 'bhuvanavignesh007@gmail.com',
+        Password : 'Bhuvan0@7',
+    };
+    var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+    var poolData = {
+    UserPoolId : 'us-east-1_Ph5FZySIB', // your user pool id here
+    ClientId : '1dcq7fo8dv8mm9hivo7no4bf7d' // your app client id here
+        };
+    var userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+    var userData = {
+        Username : 'bhuvanavignesh007@gmail.com',
+        Pool : userPool
+    };
+    var cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+    cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+            console.log('access token + ' + result.getAccessToken().getJwtToken());
+
+            //POTENTIAL: Region needs to be set if not already set previously elsewhere.
+            AWS.config.region = 'us-east-1';
+
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId : 'us-east-1:9279c21a-ae43-4dc0-b4b7-e8607803ed58', // your identity pool id here
+                Logins : {
+                    // Change the key below according to the specific region your user pool is in.
+                    'cognito-idp.us-east-1.amazonaws.com/us-east-1_Ph5FZySIB' : result.getIdToken().getJwtToken()
+                }
+            });
+
+            //refreshes credentials using AWS.CognitoIdentity.getCredentialsForIdentity()
+            AWS.config.credentials.refresh((error) => {
+                if (error) {
+                     console.error(error);
+                } else {
+                     // Instantiate aws sdk service objects now that the credentials have been updated.
+                     // example: var s3 = new AWS.S3();
+                     console.log('Successfully logged!');
+                     cognitoUser.getUserAttributes(function(err, result) {
+        if (err) {
+            alert(err.message || JSON.stringify(err));
+            return;
+        }
+        for (i = 0; i < result.length; i++) {
+            console.log('attribute ' + result[i].getName() + ' has value ' + result[i].getValue());
+        }
+    });
+                }
+            });
+        },
+
+        onFailure: function(err) {
+            alert(err.message || JSON.stringify(err));
+        },
+
+    });
+
+    }
+ 
+</script>
+</html>
